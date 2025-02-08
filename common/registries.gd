@@ -5,10 +5,10 @@ class CategoryRegistry:
 	var instances: Dictionary[String, Object] = {}
 
 # Default registry categories
-const SERVER_BOUND_PACKET = "server_bound_packet"
-const CLIENT_BOUND_PACKET = "client_bound_packet"
-const LOCAL_WORLD = "local_world"
-const LOCAL_ENTITY = "local_entity"
+const CLIENT_BOUND_PACKET := "client_bound_packet"
+const SERVER_BOUND_PACKET := "server_bound_packet"
+const LOCAL_WORLD := "local_world"
+const LOCAL_ENTITY := "local_entity"
 
 
 # Main registry storage
@@ -55,12 +55,19 @@ func _auto_load_registries_debug() -> void:
 		var packet: ClientBoundPacket = gdscript.new()
 		var filename := filepath.split(client_packet_path)[-1].split(".")[0]
 		register_instance(CLIENT_BOUND_PACKET, filename, packet)
+	var local_world_path := "res://client/world/"
+	for filepath in _get_all_files_from_directory(local_world_path, "tscn"):
+		var scene: PackedScene = load(filepath)
+		var filename := filepath.split(local_world_path)[-1].split(".")[0]
+		register_resource(LOCAL_WORLD, filename, scene)
+	
 	var server_packet_path := "res://server/packet/"
 	for filepath in _get_all_files_from_directory(server_packet_path):
 		var gdscript: GDScript = load(filepath)
 		var packet: ServerBoundPacket = gdscript.new()
 		var filename := filepath.split(server_packet_path)[-1].split(".")[0]
 		register_instance(SERVER_BOUND_PACKET, filename, packet)
+
 
 func _get_all_files_from_directory(path : String, file_ext:= "gd", files: Array[String] = []) -> Array[String]:
 	var resources := ResourceLoader.list_directory(path)

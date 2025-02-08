@@ -4,7 +4,9 @@ class_name NetworkLayerIntegrated extends NetworkLayer
 var _server: Server
 
 func connect_to_server(user_data: Dictionary) -> void:
-	my_player_id = generate_player_id(user_data["username"])
+	var username: String = user_data["username"]
+	my_player_id = generate_player_id(username)
+	_server.connection_request(my_player_id, user_data)
 
 func send_data(packet_name: String, packet_data: Dictionary) -> void:
 	_server._on_data_received(my_player_id, packet_name, packet_data)

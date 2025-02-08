@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://d101tr70wojrc"]
+
+[ext_resource type="Script" uid="uid://7afwscqs3tut" path="res://client/world/crystal_bay.gd" id="1_7nqft"]
+
+[node name="CrystalBay" type="Node2D"]
+script = ExtResource("1_7nqft")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Wow Look its Crystal Bay!"
